@@ -15,15 +15,13 @@ func (a *App) renderHome() string {
 
 	var lines []string
 
-	// Big FUJI ASCII logo (7 rows tall)
+	// Big FUJI ASCII logo — plain ASCII, renders clean in every terminal
 	fujiLogo := []string{
-		"███████ █    █  ████  █",
-		"█       █    █ █    █ █",
-		"█       █    █ █      █",
-		"█████   █    █  ████  █",
-		"█       █    █      █ █",
-		"█       █    █ █    █ █",
-		"█        ████   ████  ███████",
+		"  ####   #   #       #  #####",
+		"  #      #   #       #    #  ",
+		"  ###    #   #       #    #  ",
+		"  #      #   #  ##   #    #  ",
+		"  #       ###    #####   #####",
 	}
 
 	// Vertical centering — logo is 7 lines, tag 1, spacer 2, buttons 1, footer 2 = ~13 content lines
@@ -231,7 +229,7 @@ func (a *App) renderPathInput() string {
 	lines = append(lines, "")
 
 	prompt := lipgloss.NewStyle().Foreground(ColorTextSecondary).
-		Render("  Enter folder path or git repo URL:")
+		Render("  Enter folder path:")
 	lines = append(lines, prompt)
 	lines = append(lines, "")
 
