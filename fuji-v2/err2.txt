@@ -1,0 +1,82 @@
+    Checking fuji v2.0.0 (C:\Users\Sayan\fuji\fuji-v2)
+warning: unused import: `ValidatedPath`
+  --> src\analyzer\walker.rs:10:44
+   |
+10 | use crate::secure::{FsError, FsController, ValidatedPath};
+   |                                            ^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `FileResult`
+ --> src\secure\analyzer_trait.rs:7:42
+  |
+7 | use crate::models::{Issue, FunctionInfo, FileResult};
+  |                                          ^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> src\secure\mod.rs:10:5
+   |
+10 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `Complexity` found for enum `models::Category` in the current scope
+   --> src\gui\mod.rs:507:104
+    |
+507 | ...                   AnalysisMode::Complexity => issue.category == crate::models::Category::Complexity,
+    |                                                                                              ^^^^^^^^^^ variant or associated item not found in `models::Category`
+    |
+   ::: src\models.rs:82:1
+    |
+ 82 | pub enum Category {
+    | ----------------- variant or associated item `Complexity` not found for this enum
+
+error[E0599]: no variant or associated item named `Git` found for enum `models::Category` in the current scope
+   --> src\gui\mod.rs:508:97
+    |
+508 | ...                   AnalysisMode::Git => issue.category == crate::models::Category::Git,
+    |                                                                                       ^^^ variant or associated item not found in `models::Category`
+    |
+   ::: src\models.rs:82:1
+    |
+ 82 | pub enum Category {
+    | ----------------- variant or associated item `Git` not found for this enum
+
+error[E0599]: no variant or associated item named `Complexity` found for enum `models::Category` in the current scope
+   --> src\gui\mod.rs:558:104
+    |
+558 | ...                   AnalysisMode::Complexity => issue.category == crate::models::Category::Complexity,
+    |                                                                                              ^^^^^^^^^^ variant or associated item not found in `models::Category`
+    |
+   ::: src\models.rs:82:1
+    |
+ 82 | pub enum Category {
+    | ----------------- variant or associated item `Complexity` not found for this enum
+
+error[E0599]: no variant or associated item named `Git` found for enum `models::Category` in the current scope
+   --> src\gui\mod.rs:559:97
+    |
+559 | ...                   AnalysisMode::Git => issue.category == crate::models::Category::Git,
+    |                                                                                       ^^^ variant or associated item not found in `models::Category`
+    |
+   ::: src\models.rs:82:1
+    |
+ 82 | pub enum Category {
+    | ----------------- variant or associated item `Git` not found for this enum
+
+warning: unused variable: `card_width`
+   --> src\gui\mod.rs:269:17
+    |
+269 |             let card_width = 360.0;
+    |                 ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_card_width`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `card_height`
+   --> src\gui\mod.rs:270:17
+    |
+270 |             let card_height = 70.0;
+    |                 ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_card_height`
+
+For more information about this error, try `rustc --explain E0599`.
+warning: `fuji` (bin "fuji") generated 5 warnings
+error: could not compile `fuji` (bin "fuji") due to 4 previous errors; 5 warnings emitted

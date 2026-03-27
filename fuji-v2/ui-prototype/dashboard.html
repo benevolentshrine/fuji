@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Monolith Architecture | Codebase Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-on-surface": "#313032",
+              "surface-bright": "#39393b",
+              "background": "#131315",
+              "surface-variant": "#353437",
+              "tertiary": "#c8c6c8",
+              "surface-container-high": "#2a2a2c",
+              "on-background": "#e5e1e4",
+              "inverse-surface": "#e5e1e4",
+              "on-tertiary-container": "#2a292c",
+              "on-secondary-fixed-variant": "#004c6e",
+              "inverse-primary": "#6d3bd7",
+              "tertiary-container": "#929093",
+              "primary-fixed-dim": "#d0bcff",
+              "on-tertiary-fixed": "#1b1b1d",
+              "secondary-container": "#00a2e6",
+              "on-secondary-fixed": "#001e2f",
+              "on-error-container": "#ffdad6",
+              "on-tertiary": "#303032",
+              "on-primary": "#3c0091",
+              "surface-container-highest": "#353437",
+              "surface": "#131315",
+              "surface-container": "#201f22",
+              "on-surface": "#e5e1e4",
+              "outline-variant": "#494454",
+              "on-secondary-container": "#00344e",
+              "on-secondary": "#00344d",
+              "on-primary-fixed": "#23005c",
+              "primary": "#d0bcff",
+              "secondary": "#89ceff",
+              "primary-container": "#a078ff",
+              "on-primary-fixed-variant": "#5516be",
+              "on-error": "#690005",
+              "primary-fixed": "#e9ddff",
+              "secondary-fixed": "#c9e6ff",
+              "surface-container-low": "#1c1b1d",
+              "on-tertiary-fixed-variant": "#474649",
+              "tertiary-fixed-dim": "#c8c6c8",
+              "secondary-fixed-dim": "#89ceff",
+              "tertiary-fixed": "#e5e1e4",
+              "error-container": "#93000a",
+              "surface-tint": "#d0bcff",
+              "surface-dim": "#131315",
+              "on-primary-container": "#340080",
+              "on-surface-variant": "#cbc3d7",
+              "error": "#ffb4ab",
+              "outline": "#958ea0",
+              "surface-container-lowest": "#0e0e10"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .bg-grid-pattern {
+        background-image: radial-gradient(circle, #353437 1px, transparent 1px);
+        background-size: 32px 32px;
+      }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #353437; border-radius: 2px; }
+      .ambient-glow {
+        filter: blur(60px);
+        opacity: 0.15;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<aside class="fixed left-0 top-0 h-full z-50 flex flex-col items-center py-6 bg-[#0e0e10] dark:bg-[#0e0e10] w-20 border-r border-[#353437]/20 font-['Space_Grotesk'] text-sm tracking-tight">
+<div class="mb-10 text-xl font-bold text-[#d0bcff] tracking-tighter">M</div>
+<nav class="flex flex-col gap-6 flex-1">
+<button class="w-12 h-12 flex items-center justify-center text-[#d0bcff] bg-[#353437]/50 rounded-lg transition-colors group">
+<span class="material-symbols-outlined">folder_open</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-[#89ceff]/60 hover:bg-[#353437] hover:text-[#d0bcff] transition-colors scale-95 duration-100 ease-in-out">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-[#89ceff]/60 hover:bg-[#353437] hover:text-[#d0bcff] transition-colors scale-95 duration-100 ease-in-out">
+<span class="material-symbols-outlined">psychology</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-[#89ceff]/60 hover:bg-[#353437] hover:text-[#d0bcff] transition-colors scale-95 duration-100 ease-in-out">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+<div class="mt-auto">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVpbLkVxkQ0aM4xsWarrc1Rm1AoeAGV48pWAhdSmH6yVca5olzy0TCSHM3_-QBeXVzjx8tl4NV4i7ORpa5S6drMW-gjUNq4dMdZGv6NEkR-Fbkoo5nVl60uaxk47PdAhHgd7xOsnLg3ypIINlrgUr_1AC0lo4vxGe7djeGnbLFVjb3xLXI6EuP9uhIGp7GFUbUKkj7UScWZ6peAoBNr0Xv-12WjMvrlvkKCG0ERzJTBo5IGhbPqY9Y0LD58_SsX0VxT5fArRoG2AV9"/>
+</div>
+<div class="text-[8px] text-center mt-2 opacity-40 uppercase tracking-tighter font-bold">v1.0.4</div>
+</div>
+</aside>
+<header class="fixed top-0 right-0 left-20 z-40 h-14 bg-[#131315] dark:bg-[#131315] flex justify-between items-center px-6 font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest border-b border-[#353437]/10">
+<div class="flex items-center gap-8">
+<span class="font-black text-[#d0bcff]">Monolith Architecture</span>
+<div class="flex items-center gap-6">
+<span class="text-[#d0bcff] border-b border-[#d0bcff] pb-0.5 cursor-default">src/core/engine</span>
+<span class="text-[#89ceff]/40 hover:text-white transition-opacity cursor-pointer">analysis_v2.py</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3 mr-4">
+<span class="material-symbols-outlined text-[#89ceff]/60 text-lg cursor-pointer hover:text-white">cloud_done</span>
+<span class="material-symbols-outlined text-[#89ceff]/60 text-lg cursor-pointer hover:text-white">notifications</span>
+</div>
+<div class="bg-surface-container px-3 py-1.5 rounded-sm border border-outline-variant/10 text-[#d0bcff] opacity-80 hover:opacity-100 cursor-pointer transition-opacity">
+                User Profile
+            </div>
+</div>
+</header>
+<main class="ml-20 mt-14 p-8 min-h-screen relative overflow-hidden bg-grid-pattern">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary ambient-glow rounded-full"></div>
+<div class="absolute top-1/2 -right-24 w-64 h-64 bg-secondary ambient-glow rounded-full"></div>
+<div class="relative z-10 max-w-7xl mx-auto space-y-8">
+<section class="bg-surface-container-low p-8 rounded-lg border border-outline-variant/5 shadow-2xl">
+<h2 class="font-headline text-2xl font-bold tracking-tight mb-8">Overview</h2>
+<div class="flex flex-col lg:flex-row items-center gap-12">
+<div class="relative flex items-center justify-center w-48 h-48">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="553" stroke-dashoffset="88" stroke-linecap="butt" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline text-5xl font-black text-white">84</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Health Index</span>
+</div>
+<div class="absolute inset-0 bg-primary/20 blur-[40px] rounded-full -z-10"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 flex-1 w-full">
+<div class="bg-surface p-6 rounded border border-outline-variant/10">
+<div class="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest mb-1">Files</div>
+<div class="font-headline text-3xl font-medium">247</div>
+</div>
+<div class="bg-surface p-6 rounded border border-outline-variant/10">
+<div class="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest mb-1">Total Issues</div>
+<div class="font-headline text-3xl font-medium">38</div>
+</div>
+<div class="bg-surface p-6 rounded border border-error-container/30 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error/10 blur-xl"></div>
+<div class="text-error text-[10px] font-bold uppercase tracking-widest mb-1">Security</div>
+<div class="font-headline text-3xl font-medium text-error">5</div>
+</div>
+<div class="bg-surface p-6 rounded border border-primary-container/30 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/10 blur-xl"></div>
+<div class="text-primary text-[10px] font-bold uppercase tracking-widest mb-1">AI Suspected</div>
+<div class="font-headline text-3xl font-medium text-primary">12</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid lg:grid-cols-5 gap-8">
+<section class="lg:col-span-2 bg-surface-container-low p-6 rounded-lg border border-outline-variant/5 flex flex-col">
+<h2 class="font-headline text-xl font-bold tracking-tight mb-6">Scan Configuration</h2>
+<div class="space-y-3 flex-1">
+<div class="group cursor-pointer bg-surface border border-outline-variant/20 p-4 rounded hover:bg-surface-bright transition-all flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-error">shield</span>
+<span class="font-medium text-sm">Security Analysis</span>
+</div>
+<span class="bg-error/10 text-error text-[10px] px-2 py-0.5 rounded-full font-bold">ACTIVE</span>
+</div>
+<div class="group cursor-pointer bg-surface border border-primary/40 p-4 rounded bg-surface-container-high transition-all flex items-center justify-between shadow-[0_0_15px_rgba(208,188,255,0.05)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">psychology</span>
+<span class="font-medium text-sm">AI Detection</span>
+</div>
+<span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold">12 DETECTED</span>
+</div>
+<div class="group cursor-pointer bg-surface border border-outline-variant/20 p-4 rounded hover:bg-surface-bright transition-all flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">high_quality</span>
+<span class="font-medium text-sm">Code Quality</span>
+</div>
+<span class="bg-secondary/10 text-secondary text-[10px] px-2 py-0.5 rounded-full font-bold">STABLE</span>
+</div>
+</div>
+<button class="mt-8 w-full py-4 bg-primary text-on-primary font-headline font-black uppercase tracking-[0.2em] text-xs rounded-sm hover:scale-[1.01] active:scale-95 transition-all shadow-[0_8px_30px_rgba(208,188,255,0.2)] flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                        Run Analysis
+                    </button>
+</section>
+<section class="lg:col-span-3 bg-surface-container-low p-6 rounded-lg border border-outline-variant/5">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-xl font-bold tracking-tight">Recent Findings</h2>
+<span class="text-[10px] font-bold text-on-surface-variant bg-surface-variant px-2 py-1 rounded">LIVE UPDATES</span>
+</div>
+<div class="max-h-[380px] overflow-y-auto space-y-px">
+<div class="bg-surface-container-low hover:bg-surface-container-high p-4 flex items-center gap-4 transition-colors">
+<div class="w-2 h-2 rounded-full bg-error shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold text-on-surface truncate">SQL Injection Vulnerability in auth_service.py:142</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 uppercase tracking-tighter">High Severity • 2m ago</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">chevron_right</span>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container-high p-4 flex items-center gap-4 transition-colors">
+<div class="w-2 h-2 rounded-full bg-[#ffb000] shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold text-on-surface truncate">Legacy Cryptography Provider in session_manager.py:88</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 uppercase tracking-tighter">Medium Severity • 14m ago</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">chevron_right</span>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container-high p-4 flex items-center gap-4 transition-colors">
+<div class="w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold text-on-surface truncate">Unoptimized Loop Performance in data_parser.py:210</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 uppercase tracking-tighter">Low Severity • 1h ago</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">chevron_right</span>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container-high p-4 flex items-center gap-4 transition-colors">
+<div class="w-2 h-2 rounded-full bg-error shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold text-on-surface truncate">Hardcoded API Key detected in .env.sample:12</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 uppercase tracking-tighter">Critical • 3h ago</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">chevron_right</span>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container-high p-4 flex items-center gap-4 transition-colors">
+<div class="w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold text-on-surface truncate">Missing Type Annotation in utils/helpers.py:45</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 uppercase tracking-tighter">Informational • 5h ago</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 right-0 left-20 z-40 h-12 bg-[#0e0e10]/80 backdrop-blur-xl flex items-center justify-end px-8 gap-4 border-t border-[#353437]/30 shadow-[0px_-4px_20px_rgba(139,92,246,0.05)] font-['Inter'] text-[11px] font-bold uppercase">
+<button class="text-[#89ceff] border border-[#89ceff]/20 rounded-sm px-4 py-1.5 flex items-center gap-2 hover:bg-[#89ceff]/10 active:translate-y-0.5 duration-75">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+            Copy Report
+        </button>
+<button class="bg-[#d0bcff] text-[#131315] rounded-sm px-4 py-1.5 flex items-center gap-2 hover:bg-[#d0bcff]/90 active:translate-y-0.5 duration-75">
+<span class="material-symbols-outlined text-sm">data_object</span>
+            Export JSON
+        </button>
+</footer>
+</body></html>
